@@ -90,28 +90,36 @@ public class FightManager : MonoBehaviour
         total2_GUI.text = $"player2\t: {score2}分";
         log1_GUI.text = log2_GUI.text;
         log2_GUI.text = log3_GUI.text;
+        string str0;
         string str1;
         string str2;
         RoundScore round = _scoreRecord[_currentRound];
+        //球
+        str0 = round.throwRc == (ThrowStyle)1 ? "上" :
+        "下";
         if (round._type)
         {
-            str2 = round.hitRc == (HitStyle)0 ? "没动" :
-            round.hitRc == (HitStyle)1 ? "打了上面" :
-            "打了下面";
-            str1 = round.dodgeRc == (DodgeStyle)0 ? "没动" :
-            round.dodgeRc == (DodgeStyle)1 ? "跳了起来" :
-            "蹲了下去";
+            //击球者
+            str2 = round.hitRc == (HitStyle)0 ? "中" :
+            round.hitRc == (HitStyle)1 ? "击上" :
+            "击下";
+            //躲球者
+            str1 = round.dodgeRc == (DodgeStyle)0 ? "中" :
+            round.dodgeRc == (DodgeStyle)1 ? "躲上" :
+            "躲下";
         }
         else
         {
-            str1 = round.hitRc == (HitStyle)0 ? "没动" :
-            round.hitRc == (HitStyle)1 ? "打了上面" :
-            "打了下面";
-            str2 = round.dodgeRc == (DodgeStyle)0 ? "没动" :
-            round.dodgeRc == (DodgeStyle)1 ? "跳了起来" :
-            "蹲了下去";
+            //击球者
+            str1 = round.hitRc == (HitStyle)0 ? "中" :
+            round.hitRc == (HitStyle)1 ? "击上" :
+            "击下";
+            //躲球者
+            str2 = round.dodgeRc == (DodgeStyle)0 ? "中" :
+            round.dodgeRc == (DodgeStyle)1 ? "躲上" :
+            "躲下";
         }
-        log3_GUI.text = $"{_currentRound + 1}" + " player1 " + str1 + " player2 " + str2;
+        log3_GUI.text = $"回合{_currentRound + 1}：球-" + str0 + " P1-" + str1 + " P2-" + str2;
     }
     public void Log(string name, int rc)
     {
