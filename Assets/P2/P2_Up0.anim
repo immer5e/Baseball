@@ -18,19 +18,18 @@ AnimationClip:
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves:
-  - serializedVersion: 2
-    curve:
+  - curve:
     - time: 0
       value: {fileID: 953779671, guid: e42e9e701aad7c948b233cfda9bf05a6, type: 3}
-    - time: 0.1
+    - time: 0.05
       value: {fileID: 1468112678, guid: e42e9e701aad7c948b233cfda9bf05a6, type: 3}
-    - time: 0.2
+    - time: 0.1
       value: {fileID: 1141391486, guid: e42e9e701aad7c948b233cfda9bf05a6, type: 3}
-    - time: 0.3
+    - time: 0.15
       value: {fileID: 1040252481, guid: e42e9e701aad7c948b233cfda9bf05a6, type: 3}
-    - time: 0.4
+    - time: 0.2
       value: {fileID: -2079254754, guid: e42e9e701aad7c948b233cfda9bf05a6, type: 3}
-    - time: 0.5
+    - time: 0.28333333
       value: {fileID: 874699123, guid: e42e9e701aad7c948b233cfda9bf05a6, type: 3}
     - time: 0.6
       value: {fileID: -105864973, guid: e42e9e701aad7c948b233cfda9bf05a6, type: 3}
@@ -40,7 +39,6 @@ AnimationClip:
     path: 
     classID: 212
     script: {fileID: 0}
-    flags: 2
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -55,8 +53,6 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 953779671, guid: e42e9e701aad7c948b233cfda9bf05a6, type: 3}
     - {fileID: 1468112678, guid: e42e9e701aad7c948b233cfda9bf05a6, type: 3}

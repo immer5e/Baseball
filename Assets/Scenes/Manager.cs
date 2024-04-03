@@ -14,6 +14,7 @@ public class Manager : MonoBehaviour
     Animator animator_P1;
     Animator animator_P2;
 
+    private bool isBall = true;
     private bool randomBool;
     private bool Begin = false;
     private bool End = false;
@@ -51,18 +52,47 @@ public class Manager : MonoBehaviour
             Initialize();
         }
 
-        if (timer > 2 && Begin == true)                  //3S倒计时，玩家可以开始操控
+        if (timer > 2 && Begin == true)                  //2S倒计时,PC开始动画
         {
             animator_PC.SetBool("Begin", Begin);
+            //animator_P1.SetBool("Begin", Begin);
+            //animator_P2.SetBool("Begin", Begin);
+        }
+
+        if (timer > 3 && Begin == true)                  //3S后发球，玩家可以开始操控
+        {
+            animator_BALL.SetBool("Begin", Begin);
             animator_P1.SetBool("Begin", Begin);
             animator_P2.SetBool("Begin", Begin);
         }
-        if (timer > 3 && Begin == true)                  //3.5S后发球
+
+        if (timer >3.5 && Begin == true && Swap == true && (randomBool == true && animator_P1.GetBool("Up") == true ||  randomBool == false && animator_P1.GetBool("Down") == true))
         {
-            animator_BALL.SetBool("Begin", Begin);
+            BALL.SetActive(false);
+            isBall = false;
+            Debug.Log("Hit");           //男在前
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (timer > 3.5 && Begin == true && Swap == false && (randomBool == true && animator_P1.GetBool("Up") == true || randomBool == false && animator_P1.GetBool("Down") == true))
+        {
+            BALL.SetActive(false);
+            isBall = false;
+            Debug.Log("Hit");           //女在前
+        }
+
+
+        if (timer > 4 && Begin == true && Swap == true && isBall == true && (randomBool == true && animator_P2.GetBool("Down") == false || randomBool == false && animator_P2.GetBool("Up") == false)) 
+        {
+            animator_P2.SetBool("Hit", true); //女在后
+        }
+
+        if (timer > 4 && Swap == false && Begin == true && isBall == true && (randomBool == true && animator_P2.GetBool("Down") == false || randomBool == false && animator_P2.GetBool("Up") == false)) 
+        {
+            animator_P2.SetBool("Hit", true); //男在后
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.W) && animator_P2.GetBool("Hit") == false &&(Swap == true && animator_P1.GetBool("Down") == false || Swap == false && animator_P2.GetBool("Down") == false))
         {
             if (Swap)
             {
@@ -74,10 +104,10 @@ public class Manager : MonoBehaviour
                 animator_P2.SetBool("Up", true);
                 FightManager.fightManager.Log("Dodge", 1);
             }
-            StartCoroutine(ResetBoolP1(2F));
+            StartCoroutine(ResetBoolP1(1F));
         }           //志安按下W
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && animator_P2.GetBool("Hit") == false && (Swap == true && animator_P1.GetBool("Up") == false || Swap == false && animator_P2.GetBool("Up") == false))
         {
             if (Swap)
             {
@@ -89,10 +119,10 @@ public class Manager : MonoBehaviour
                 animator_P2.SetBool("Down", true);
                 FightManager.fightManager.Log("Dodge", 2);
             }
-            StartCoroutine(ResetBoolP1(2F));
+            StartCoroutine(ResetBoolP1(1F));
         }           //志安按下S
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && animator_P2.GetBool("Hit") == false && (Swap == true && animator_P2.GetBool("Down") == false || Swap == false && animator_P1.GetBool("Down") == false))
         {
             if (Swap)
             {
@@ -104,10 +134,10 @@ public class Manager : MonoBehaviour
                 animator_P1.SetBool("Up", true);
                 FightManager.fightManager.Log("Hit", 1);
             }
-            StartCoroutine(ResetBoolP2(2F));
+            StartCoroutine(ResetBoolP2(1F));
         }           //乔然按下W
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) && animator_P2.GetBool("Hit") == false && (Swap == true && animator_P2.GetBool("Up") == false || Swap == false && animator_P1.GetBool("Up") == false))
         {
             if (Swap)
             {
@@ -119,7 +149,7 @@ public class Manager : MonoBehaviour
                 animator_P1.SetBool("Down", true);
                 FightManager.fightManager.Log("Hit", 2);
             }
-            StartCoroutine(ResetBoolP2(2F));
+            StartCoroutine(ResetBoolP2(1F));
         }           //乔然按下S
 
         if (timer > 5 && Begin == true)                  //公布答案
@@ -154,11 +184,12 @@ public class Manager : MonoBehaviour
             //结算回合
             FightManager.fightManager.GeneraResult();
         }                       //一轮结束的后处理
-        Debug.Log(Swap);
     }
 
     void Initialize() //初始化回合
     {
+        isBall = true;
+        BALL.SetActive(true);
         Begin = true;
 
         End = false;
