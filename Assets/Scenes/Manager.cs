@@ -21,6 +21,10 @@ public class Manager : MonoBehaviour
     private bool Swap = true;
     private float timer;
 
+    private void OnEnable()
+    {
+        
+    }
     void Start()
     {
         // 获取Animator组件
@@ -187,6 +191,7 @@ public class Manager : MonoBehaviour
             /*Initialize();*/
         }                       //一轮结束的后处理
     }
+    
     IEnumerator IEInit()
     {
         yield return new WaitForSeconds(2f);
