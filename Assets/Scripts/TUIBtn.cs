@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TUIBtn : MonoBehaviour
 {
+    public GameObject Canvas1;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,8 @@ public class TUIBtn : MonoBehaviour
     }
     public void RuleDisplay()
     {
-
+        Time.timeScale = 0f;
+        Canvas1.SetActive(true);
+        Canvas1.GetComponent<TapCanvas>().Set(0);
     }
 }

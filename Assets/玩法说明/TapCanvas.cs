@@ -22,6 +22,10 @@ public class TapCanvas : MonoBehaviour
     [ContextMenu("看b见")]
     public void InVisible()
     {
+        if (Time.timeScale == 0f)
+        {
+            Time.timeScale = 1f;
+        }
         gameObject.SetActive(false);
     }
     [ContextMenu("看见")]
