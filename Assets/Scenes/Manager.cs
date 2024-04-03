@@ -179,11 +179,18 @@ public class Manager : MonoBehaviour
             animator_P1.SetBool("Batter1", Swap);            //交换顺序
             animator_P2.SetBool("Batter1", !Swap);
             //StartCoroutine(ResetSwap(3F));
-            //Initialize();
 
             //结算回合
             FightManager.fightManager.GeneraResult();
+
+            StartCoroutine(IEInit());
+            /*Initialize();*/
         }                       //一轮结束的后处理
+    }
+    IEnumerator IEInit()
+    {
+        yield return new WaitForSeconds(2f);
+        Initialize();
     }
 
     void Initialize() //初始化回合

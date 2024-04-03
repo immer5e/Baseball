@@ -9,6 +9,7 @@ public class TapCanvas : MonoBehaviour
     public List<Sprite> imageList = new();
     public Image showImage;
     public int index;
+    public GameObject NextObj;
     private void Awake()
     {
         index = 0;
@@ -41,8 +42,17 @@ public class TapCanvas : MonoBehaviour
     }
     public void Next()
     {
-        index = Mathf.Clamp(++index, 0, imageList.Count - 1);
+        index = Mathf.Clamp(++index, 0, imageList.Count);
+        if(index == imageList.Count)
+        {
+            InVisible();
+            NextObj.SetActive(true);
+        }
+        else
+        {
         UpdateShowImage();
+        }
+
     }
     public void Previous()
     {
