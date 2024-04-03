@@ -2,13 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class FightManager : MonoBehaviour
 {
     public static FightManager fightManager;
+    public Shrink daigua;
+    public Shrink jingcai;
+    public Shrink wanmei;
+    public Shrink wuxiao;
+    public Shrink buxinren;
+    public GameObject finObj;
+    public TextMeshProUGUI finT1;
+    public TextMeshProUGUI finT2;
     public enum ThrowStyle
     {
         none = 0,
@@ -121,6 +128,12 @@ public class FightManager : MonoBehaviour
         }
         log3_GUI.text = $"回合{_currentRound + 1}：球-" + str0 + " P1-" + str1 + " P2-" + str2;
     }
+    public void Fin()
+    {
+        finObj.SetActive(true);
+        finT1.text = total1_GUI.text;
+        finT2.text = total2_GUI.text;
+    }
     public void Log(string name, int rc)
     {
         RoundScore round = _scoreRecord[_currentRound];
@@ -161,11 +174,20 @@ public class FightManager : MonoBehaviour
             if (dodgeRc != 0)
             {
                 Score(2, 0);
+                // buxinren.gameObject.SetActive(true);
+                Shrink s = Instantiate(buxinren);
+                s.gameObject.SetActive(true);
+                s.DoShrink();
+                StartCoroutine(Close(s));
                 //不信任
             }
             else
             {
                 Score(4, 4);
+                Shrink s = Instantiate(wanmei);
+                s.gameObject.SetActive(true);
+                s.DoShrink();
+                StartCoroutine(Close(s));
                 //完美信任
             }
         }
@@ -174,6 +196,10 @@ public class FightManager : MonoBehaviour
             if (dodgeRc == 0)
             {
                 //呆瓜
+                Shrink s = Instantiate(daigua);
+                s.gameObject.SetActive(true);
+                s.DoShrink();
+                StartCoroutine(Close(s));
                 if (_currentRound <= 3)
                     Score(-2, -2);
                 else
@@ -182,6 +208,10 @@ public class FightManager : MonoBehaviour
             else if (throwRc == dodgeRc)
             {
                 //无效闪避
+                Shrink s = Instantiate(wuxiao);
+                s.gameObject.SetActive(true);
+                s.DoShrink();
+                StartCoroutine(Close(s));
                 if (_currentRound <= 3)
                     Score(-2, -2);
                 else
@@ -190,6 +220,10 @@ public class FightManager : MonoBehaviour
             else
             {
                 //精彩闪避
+                Shrink s = Instantiate(jingcai);
+                s.gameObject.SetActive(true);
+                s.DoShrink();
+                StartCoroutine(Close(s));
                 Score(0, 5);
             }
         }
@@ -209,5 +243,11 @@ public class FightManager : MonoBehaviour
                 round._player2 = hiter;
             }
         }
+    }
+
+    IEnumerator Close(Shrink shrink)
+    {
+        yield return new WaitForSeconds(4f);
+        shrink.gameObject.SetActive(false);
     }
 }

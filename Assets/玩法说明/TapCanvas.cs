@@ -43,14 +43,15 @@ public class TapCanvas : MonoBehaviour
     public void Next()
     {
         index = Mathf.Clamp(++index, 0, imageList.Count);
-        if(index == imageList.Count)
+        if (index == imageList.Count)
         {
             InVisible();
-            NextObj.SetActive(true);
+            if (NextObj != null)
+                NextObj.SetActive(true);
         }
         else
         {
-        UpdateShowImage();
+            UpdateShowImage();
         }
 
     }
