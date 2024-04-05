@@ -81,7 +81,7 @@ public class Manager : MonoBehaviour
             animator_P2.SetBool("Begin", Begin);
         }
 
-        if (timer > 3.5 && Begin == true && Swap == true && (randomBool == true && animator_P1.GetBool("Up") == true || randomBool == false && animator_P1.GetBool("Down") == true))
+        if (timer > 3.9 && Begin == true && Swap == true && (randomBool == true && animator_P1.GetBool("Up") == true || randomBool == false && animator_P1.GetBool("Down") == true))
         {
             BALL.SetActive(false);
             isBall = false;
@@ -90,10 +90,10 @@ public class Manager : MonoBehaviour
                 Audior.Instance.HitBall();
                 hitBall = false;
             }
-            Debug.Log("Hit");           //男在前
+            Debug.Log("Hit");           //男在前,打中球了
         }
 
-        if (timer > 3.5 && Begin == true && Swap == false && (randomBool == true && animator_P1.GetBool("Up") == true || randomBool == false && animator_P1.GetBool("Down") == true))
+        if (timer > 3.9 && Begin == true && Swap == false && (randomBool == true && animator_P1.GetBool("Up") == true || randomBool == false && animator_P1.GetBool("Down") == true))
         {
             if (hitBall)
             {
@@ -102,7 +102,7 @@ public class Manager : MonoBehaviour
             }
             BALL.SetActive(false);
             isBall = false;
-            Debug.Log("Hit");           //女在前
+            Debug.Log("Hit");           //女在前,打中球了
         }
 
 
@@ -113,7 +113,7 @@ public class Manager : MonoBehaviour
                 Audior.Instance.Behit();
                 behit = false;
             }
-            animator_P2.SetBool("Hit", true); //女在后
+            animator_P2.SetBool("Hit", true); //女在后,被球打中
         }
 
         if (timer > 4 && Swap == false && Begin == true && isBall == true && (randomBool == true && animator_P2.GetBool("Down") == false || randomBool == false && animator_P2.GetBool("Up") == false))
@@ -123,7 +123,7 @@ public class Manager : MonoBehaviour
                 Audior.Instance.Behit();
                 behit = false;
             }
-            animator_P2.SetBool("Hit", true); //男在后
+            animator_P2.SetBool("Hit", true); //男在后,被球打中
         }
 
 
@@ -320,10 +320,4 @@ public class Manager : MonoBehaviour
         }
     }       //重置乔安上下
 
-    IEnumerator ResetSwap(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        animator_P1.SetBool("Batter1", Swap);            //交换顺序
-        animator_P2.SetBool("Batter1", !Swap);
-    }
 }
